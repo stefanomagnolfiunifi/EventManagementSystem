@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    <h1>Welcome in EventManager!</h1>
+    {% if user.is_authenticated %}
+        <h3>Hello, {{ user.username }}! You can manage your events.</h3>
+
+        <a href="{% url 'events:event_list' %}" class="btn btn-primary">View All Events</a>
+        <a href="{% url 'events:create_event' %}" class="btn btn-success">Create New Event</a>
+        <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+        
+    {% else %}
+        <p>Please login or sign up to manage your events.</p>
+    {% endif %}
+    
+{% endblock %}
