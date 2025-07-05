@@ -11,6 +11,7 @@ def event_list(request):
     events = Event.objects.all()
     participated_events = events.filter(registrations=request.user)
     organized_events = events.filter(organizer=request.user)
+    
     return render(request, 'events/event_list.html', {'events': events, 'participated_events' : participated_events, 'organized_events': organized_events})
 
 

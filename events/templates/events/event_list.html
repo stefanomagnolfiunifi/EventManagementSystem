@@ -27,8 +27,8 @@
                             <p class="card-text">{{ event.description }}</p>
                         </div>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><strong>Luogo:</strong> {{ event.location }}</li>
-                            <li class="list-group-item"><strong>Organizzatore:</strong> {{ event.organizer.username }}</li>
+                            <li class="list-group-item"><strong>Location:</strong> {{ event.location }}</li>
+                            <li class="list-group-item"><strong>Organizer:</strong> {{ event.organizer.username }}</li>
                         </ul>
                         {% if event in participated_events %}
                             <a href="{% url 'events:unregister_to_event' event.id %}" class="btn btn-danger">Unregister</a>
@@ -54,8 +54,8 @@
                             <p class="card-text">{{ event.description }}</p>
                         </div>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><strong>Luogo:</strong> {{ event.location }}</li>
-                            <li class="list-group-item"><strong>Organizzatore:</strong> {{ event.organizer.username }}</li>
+                            <li class="list-group-item"><strong>Location:</strong> {{ event.location }}</li>
+                            <li class="list-group-item"><strong>Organizer:</strong> {{ event.organizer.username }}</li>
                         </ul>
                         <a href="{% url 'events:unregister_to_event' event.id %}" class="btn btn-danger">Unregister</a>
                     </div>
@@ -77,9 +77,20 @@
                             <p class="card-text">{{ event.description }}</p>
                         </div>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><strong>Luogo:</strong> {{ event.location }}</li>
-                            <li class="list-group-item"><strong>Organizzatore:</strong> {{ event.organizer.username }}</li>
-                        </ul>
+                            <li class="list-group-item"><strong>Location:</strong> {{ event.location }}</li>
+                            <li class="list-group-item"><strong>Organizer:</strong> {{ event.organizer.username }}</li>
+                            <li class="list-group-item"><strong>Attendees</strong>
+                                
+                                {% if event.registrations.all %}
+                                <ul>
+                                    {% for attendee in event.registrations.all %}
+                                        <li>{{ attendee.username }}</li>
+                                    {% endfor %}
+                                </ul>
+                                {% else %}
+                                    <span>No attendees yet.</span>
+                                {% endif %}
+                                </ul></li>
                         <div class="d-flex justify-content-between p-3">
                             <a href="{% url 'events:update_event' event.id%}" class="btn btn-primary col-4">Update</a>
                             <a href="{% url 'events:delete_event' event.id%}" class="btn btn-danger col-4">Delete</a>
