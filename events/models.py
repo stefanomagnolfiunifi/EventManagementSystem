@@ -4,7 +4,7 @@ from django.conf import settings
 #Model representing an event
 class Event(models.Model):
 
-    title = models.CharField(max_length=100)
+    title = models.CharField(max_length=100, unique=True)
     description = models.TextField()
     date = models.DateTimeField()
     location = models.CharField(max_length=100)
