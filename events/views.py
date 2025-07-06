@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Event 
+from django.views.generic import ListView
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.decorators import login_required, permission_required
 
 from django.contrib import messages
@@ -7,15 +9,22 @@ from .forms import EventForm
 
 # Create your views here.
 
-@login_required
-@permission_required('users.can_view_events', raise_exception=True)
-@permission_required('users.can_view_own_registrations', raise_exception=True)
-def event_list(request):
-    events = Event.objects.all()
-    participated_events = events.filter(registrations=request.user)
-    organized_events = events.filter(organizer=request.user)
+class EventListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+    model = Event
+    template_name = 'events/event_list.html'
+    context_object_name = 'events'
+    permission_required = ['users.can_view_events', 'users.can_view_own_registrations']
+    ordering = ['date']
     
-    return render(request, 'events/event_list.html', {'events': events, 'participated_events' : participated_events, 'organized_events': organized_events})
+    def get_context_data(self, **kwargs):
+        
+        context = super().get_context_data(**kwargs)
+        user = self.request.user
+        
+        context['participated_events'] = self.get_queryset().filter(registrations=user)
+        context['organized_events'] = self.get_queryset().filter(organizer=user)
+        
+        return context
 
 
 @login_required

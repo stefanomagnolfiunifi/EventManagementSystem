@@ -12,7 +12,7 @@ def custom_login_view(request):
         user = authenticate(request, username=username, password=password)
         if user:
             login(request, user)
-            return redirect('events:event_list')
+            return redirect('home') # Redirect to the home page after login
         else:
             return render(request, 'users/login.html', {'error': 'Credenziali errate'})
     return render(request, 'users/login.html')

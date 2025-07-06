@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Lista di tutti gli Eventi{% endblock %}
+{% block title %}Manage Events{% endblock %}
 
 {% block content %}
     {% if messages %}
@@ -67,7 +67,7 @@
         </div>
         
         <button type="submit" class="btn btn-success">{%if update%} Update {%else%} Create  {%endif%} Event</button>
-        <a href="{% url 'home' %}" class="btn btn-secondary">Cancel</a>
+        <a href="{% url 'home' %}" class="btn btn-secondary">Back to Home</a>
     </form>
 
 {% endblock %}
