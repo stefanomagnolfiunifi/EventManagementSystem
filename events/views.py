@@ -1,12 +1,15 @@
 from django.shortcuts import render, redirect
 from .models import Event 
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
+
 from django.contrib import messages
 from .forms import EventForm
 
 # Create your views here.
 
 @login_required
+@permission_required('users.can_view_events', raise_exception=True)
+@permission_required('users.can_view_own_registrations', raise_exception=True)
 def event_list(request):
     events = Event.objects.all()
     participated_events = events.filter(registrations=request.user)
@@ -16,6 +19,7 @@ def event_list(request):
 
 
 @login_required
+@permission_required('users.can_create_event', raise_exception=True)
 def create_event(request):
     if request.method == 'POST':
         form = EventForm(request.POST)
@@ -32,6 +36,7 @@ def create_event(request):
     return render(request, 'events/manage_event.html', {'form': form, 'success': False, 'update': False})
 
 @login_required
+@permission_required('users.can_register_himself', raise_exception=True)
 def register_to_event(request, event_id):
     event = Event.objects.get(id=event_id)
     
@@ -44,6 +49,7 @@ def register_to_event(request, event_id):
     return redirect('events:event_list')
 
 @login_required
+@permission_required('users.can_unregister_himself', raise_exception=True)
 def unregister_from_event(request, event_id):
     event = Event.objects.get(id=event_id)
     
@@ -56,6 +62,7 @@ def unregister_from_event(request, event_id):
     return redirect('events:event_list')
 
 @login_required
+@permission_required('users.can_edit_own_event', raise_exception=True)
 def update_event(request, event_id):
     event = Event.objects.get(id=event_id)
     
@@ -66,11 +73,14 @@ def update_event(request, event_id):
             messages.success(request, "Event updated successfully.")
             return redirect('events:event_list')
         else:
+            print(form.errors)
             messages.error(request, "Error updating event.")
+            return render(request, 'events/manage_event.html', {'form': form, 'success': False, 'update': True})
 
     return render(request, 'events/manage_event.html', {'form': EventForm(instance=event), 'event': event, 'update': True})
 
 @login_required
+@permission_required('users.can_delete_own_event', raise_exception=True)
 def delete_event(request, event_id):
     event = Event.objects.get(id=event_id)
     

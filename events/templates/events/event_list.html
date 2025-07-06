@@ -15,7 +15,7 @@
     <div class="container py-5">
         <button id="upcoming-events-button"><h1 class="mb-4">Upcoming Events</h1></button>
         <button id="participated-events-button"><h1 class="mb-4">Events you will participate</h1></button>
-        <button id="organized-events-button"><h1 class="mb-4">Your organized Events</h1></button>
+        {% if perms.users.can_create_event %}<button id="organized-events-button"><h1 class="mb-4">Your organized Events</h1></button>{%endif %}
         
         <div class="row g-4" id="upcoming-events">
             {% for event in events %}
@@ -67,6 +67,8 @@
             {% endfor %}
         </div>
 
+        {% if perms.users.can_create_event %}
+            
         <div class="row g-4" id="organized-events">
             {% for event in organized_events %}
                 <div class="col-12 col-md-6">
@@ -105,6 +107,7 @@
                 </div>
             {% endfor %}
         </div>
+        {% endif %}
     </div>
 
 

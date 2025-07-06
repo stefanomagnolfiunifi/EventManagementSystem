@@ -2,6 +2,8 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
 from .forms import CustomUserCreationForm
+from django.contrib.auth.models import Group
+from django.contrib.auth.decorators import login_required
 
 def custom_login_view(request):
     if request.method == 'POST':
@@ -19,7 +21,12 @@ def signup_view(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
-            form.save()
+            user = form.save()
+            if user.is_organizer:
+                group = Group.objects.get(name='Organizers')
+            else:
+                group = Group.objects.get(name='Attendees')
+            group.user_set.add(user)
             print("User registered successfully")
             return redirect('login')
         else:
@@ -31,6 +38,7 @@ def signup_view(request):
         
     return render(request, 'users/signup.html', {'form': form})
 
+@login_required
 def custom_logout_view(request):
     from django.contrib.auth import logout
     logout(request)
