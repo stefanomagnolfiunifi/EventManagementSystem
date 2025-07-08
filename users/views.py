@@ -38,8 +38,20 @@ def signup_view(request):
         
     return render(request, 'users/signup.html', {'form': form})
 
+
+@login_required
+def profile_view(request):
+    user = request.user
+    user_fields = {
+        'Username': user.username,
+        'Email': user.email if user.email else 'N/A',
+        'Date of Birth': user.date_of_birth if user.date_of_birth else 'N/A',
+        'Role': 'Organizer' if user.is_organizer else 'Attendee'
+    }
+    return render(request, 'users/profile.html', {'user_fields': user_fields})    
+
 @login_required
 def custom_logout_view(request):
     from django.contrib.auth import logout
     logout(request)
-    return redirect('login')
+    return redirect('home')

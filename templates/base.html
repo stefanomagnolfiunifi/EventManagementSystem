@@ -16,6 +16,8 @@
                 {% if user.is_authenticated is False %}
                 <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'signup' %}">Sign Up</a></li>
+                {% else %}
+                <li class="nav-item"><a class="nav-link" href="{% url 'profile' %}">{{user.username}}</a></li>
                 {% endif %}
             </ul>
         </div>

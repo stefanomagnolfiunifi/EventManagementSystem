@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+
+<div class="container py-5 text-center">
+    <div class="card shadow-sm mx-auto" style="max-width: 50%;">
+        <div class="card-body">
+            <h3 class="card-title text-center mb-4">User Profile</h3>
+
+            <ul class="list-group list-group-flush">
+                {% for label, value in user_fields.items %}
+                    <li class="list-group-item d-flex justify-content-between">
+                        <strong>{{ label }}:</strong>
+                        <span>{{ value }}</span>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        
+    </div>
+    <div class="mx-auto ">
+        <a href="{% url 'home' %}" class="btn btn-secondary mt-3">Back to Home</a>
+    </div>
+</div>
+    
+{% endblock %}
