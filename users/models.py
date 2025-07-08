@@ -5,7 +5,7 @@ class CustomUser(AbstractUser):
     
     #Custom user model that extends the default Django user model.
     is_organizer = models.BooleanField(default=False)
-    date_of_birth = models.DateField(null=True, blank=True)
+    date_of_birth = models.DateField(null=True)
     
     class Meta:
         permissions = (

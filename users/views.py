@@ -14,7 +14,7 @@ def custom_login_view(request):
             login(request, user)
             return redirect('home') # Redirect to the home page after login
         else:
-            return render(request, 'users/login.html', {'error': 'Credenziali errate'})
+            return render(request, 'users/login.html', {'error': 'Wrong username or password'})
     return render(request, 'users/login.html')
 
 def signup_view(request):
