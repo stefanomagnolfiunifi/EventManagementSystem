@@ -1,5 +1,6 @@
 # Event Management System
 This is an Event Management System developed using the Python framework 'Django'. Here are explained functionalities and how to use the web app.
+Deployment link: https://eventmanagementsystem-production-a2ae.up.railway.app/
 ### Functionalities
 The web app allow users to attend events. If the user is an organizer he can create and manage his own events.
 ## How to use
