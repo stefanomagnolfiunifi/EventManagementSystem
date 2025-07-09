@@ -42,6 +42,7 @@ ALLOWED_HOSTS = ['.railway.app', '127.0.0.1', 'localhost']
 AUTH_USER_MODEL = 'users.CustomUser'
 
 
+STATIC_URL = '/static/'
 
 # Application definition
 
