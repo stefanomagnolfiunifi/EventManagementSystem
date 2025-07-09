@@ -97,7 +97,7 @@
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item"><strong>Location:</strong> {{ event.location }}</li>
                             <li class="list-group-item"><strong>Organizer:</strong> {{ event.organizer.username }}</li>
-                            <li class="list-group-item"><strong>Attendees</strong>
+                            <li class="list-group-item"><strong>Attendees:</strong>
                                 
                                 {% if event.registrations.all %}
                                 <ul>
@@ -119,13 +119,13 @@
             {% empty %}
                 <div class="col-12">
                     <div class="alert alert-info">You hadn't create any events yet. Create one first.</div>
-                    <a href="{% url 'events:create_event' %}" class="btn btn-success">Create New Event</a>
                 </div>
             {% endfor %}
         </div>
         {% endif %}
 
         <div>
+            <a href="{% url 'events:create_event' %}" class="btn btn-success">Create New Event</a>
             <a href="{% url 'home' %}" class="btn btn-secondary mt-3">Back to Home</a>
         </div>
     </div>
