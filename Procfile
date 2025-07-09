@@ -1,1 +1,1 @@
-web: bash -c "python manage.py migrate && gunicorn EventManagementSystem.wsgi --log-file -"
+web: python manage.py makemigrations && python manage.py migrate && python manage.py collectstatic --noinput && gunicorn EventManagementSystem.wsgi --log-file -
