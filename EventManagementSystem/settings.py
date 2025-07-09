@@ -90,13 +90,22 @@ WSGI_APPLICATION = 'EventManagementSystem.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-try:
+
+if DEBUG:
     DATABASES = {
-        'default': env.db(),
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-except Exception as e:
-    print("Errore nel parsing della DATABASE_URL:", e)
-    raise
+else:
+    try:
+        DATABASES = {
+            'default': env.db(),
+        }
+    except Exception as e:
+        print("Errore nel parsing della DATABASE_URL:", e)
+        raise
 
 
 # Password validation
