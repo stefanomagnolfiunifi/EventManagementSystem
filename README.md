@@ -4,6 +4,10 @@ Deployment link: https://eventmanagementsystem-production-a2ae.up.railway.app/
 ### Functionalities
 The web app allow users to attend events. If the user is an organizer he can create and manage his own events.
 ## How to use
+### Clone repo
+If you clone the repository to run the app locally, you need to add a .env file and define:
+* DEBUG=True
+* SECRET_KEY="EXAMPLE_SECRET_KEY"
 ### Login
 You have to be logged to use the app. If you don't have an account you can create one. You must be at least 14 year old to sign up.
 ### Use the app
@@ -13,6 +17,6 @@ Once you logged, you can basically do three things:
 * Create new event (only if you are an organizer).
 * Logout.
 ### Pre-populated database
-In the pre-populated database there are Attendees (Alice_Attendee, Sofia_Attendee, Vincenzo_Attendee, Stefano_Attendee, Lorenzo_Attendee) and Organizers (Roberta_Organizer, Paolo_Organizer). Passwords are 'partecipante' for all the Attendees and 'responsabile' for both the Organizers. 
+In the pre-populated database there are Attendees (Alice_Attendee, Sofia_Attendee, Vincenzo_Attendee, Stefano_Attendee, Lorenzo_Attendee, Francesca_Attendee) and Organizers (Roberta_Organizer, Paolo_Organizer). Passwords are 'partecipante' for all the Attendees and 'responsabile' for both the Organizers. 
 All the users (both Attendees and Organizers) are registered for some events.
 Finally, the superuser's username and password is admin.
